@@ -53,39 +53,98 @@ header{background:var(--blue2);color:#fff;padding:14px 20px}.nav{max-width:1120p
 <section class="section quote" id="cotacao"><div class="container quote-grid">
 <div class="quote-copy"><h2>Solicite sua cotação</h2><p>Informe seus dados para iniciar o atendimento. Ao enviar, o WhatsApp será aberto com uma mensagem pronta para você confirmar o envio.</p><p><strong>Atendimento:</strong><br><span class="orange">(21) 98442-5712</span></p></div>
 <form class="form-card" id="leadForm">
-<h3>Faça sua cotação</h3><p>Preencha os campos abaixo.</p>
-<div class="field"><label for="nome">Nome completo</label><input id="nome" name="nome" autocomplete="name" required placeholder="Seu nome completo"></div>
-<div class="field"><label for="telefone">Telefone / WhatsApp</label><input id="telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(21) 99999-9999"></div>
-<div class="field"><label for="cep">CEP</label><input id="cep" name="cep" inputmode="numeric" autocomplete="postal-code" required placeholder="00000-000" maxlength="9"></div>
-<div class="field"><label for="uso">Uso do veículo</label><select id="uso" name="uso" required><option value="Particular">Particular</option><option value="Trabalho">Trabalho</option></select></div>
-<div class="field"><label for="placa">Placa do veículo</label><input id="placa" name="placa" required maxlength="7" placeholder="ABC1D23" style="text-transform:uppercase"></div>
+<h3>Faça sua cotação</h3>
+<p>Preencha todos os campos abaixo.</p>
+<div class="field">
+<label for="nome">Nome completo</label>
+<input id="nome" name="nome" autocomplete="name" required placeholder="Seu nome completo">
+</div>
+<div class="field">
+<label for="cpf">CPF</label>
+<input id="cpf" name="cpf" inputmode="numeric" maxlength="14" required placeholder="000.000.000-00">
+</div>
+<div class="field">
+<label for="placa">Placa do veículo</label>
+<input id="placa" name="placa" required maxlength="7" placeholder="ABC1D23" style="text-transform:uppercase">
+</div>
+<div class="field">
+<label for="telefone">Telefone / WhatsApp</label>
+<input id="telefone" name="telefone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(21) 99999-9999">
+</div>
+<div class="field">
+<label for="email">E-mail</label>
+<input id="email" name="email" type="email" autocomplete="email" required placeholder="seuemail@exemplo.com">
+</div>
+<div class="field">
+<label for="nascimento">Data de nascimento</label>
+<input id="nascimento" name="nascimento" type="date" required>
+</div>
+<div class="field">
+<label for="estado_civil">Estado civil</label>
+<select id="estado_civil" name="estado_civil" required>
+<option value="">Selecione</option>
+<option value="Casado(a)">Casado(a)</option>
+<option value="Solteiro(a)">Solteiro(a)</option>
+</select>
+</div>
+<div class="field">
+<label for="cep">CEP</label>
+<input id="cep" name="cep" inputmode="numeric" autocomplete="postal-code" required placeholder="00000-000" maxlength="9">
+</div>
+<div class="field">
+<label for="uso">Uso do veículo</label>
+<select id="uso" name="uso" required>
+<option value="">Selecione</option>
+<option value="Particular">Particular</option>
+<option value="Trabalho">Trabalho</option>
+</select>
+</div>
+<div class="field">
+<label for="garagem">Possui garagem de pernoite?</label>
+<select id="garagem" name="garagem" required>
+<option value="">Selecione</option>
+<option value="Sim">Sim</option>
+<option value="Não">Não</option>
+</select>
+</div>
 <button class="btn" type="submit">ENVIAR PELO WHATSAPP</button>
-<p class="privacy">Ao continuar, você concorda que seus dados sejam utilizados para responder à sua solicitação de cotação. Consulte a política de privacidade da empresa para saber como seus dados são tratados.</p>
+<p class="privacy">Ao enviar, seus dados serão utilizados para responder à sua solicitação de cotação e serão encaminhados pelo WhatsApp da Álamo.</p>
 </form>
 </div></section>
 </main>
 <footer class="footer"><p><strong>ÁLAMO PROTEÇÃO VEICULAR</strong></p><p>Proteção para carro e moto.</p><p>Site demonstrativo para captação de contatos.</p></footer>
 <script>
 const form = document.getElementById('leadForm');
-document.getElementById('cep').addEventListener('input', function(){let v=this.value.replace(/\D/g,'').slice(0,8);if(v.length>5)v=v.slice(0,5)+'-'+v.slice(5);this.value=v;});
-document.getElementById('placa').addEventListener('input', function(){this.value=this.value.toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,7);});
-form.addEventListener('submit', function(e){
- e.preventDefault();
- const d = new FormData(form);
- const msg = [
- 'Olá! Quero solicitar uma cotação de proteção veicular pela página da Álamo.',
- '',
- 'Nome: '+d.get('nome'),
- 'Telefone: '+d.get('telefone'),
- 'CEP: '+d.get('cep'),
- 'Uso do veículo: '+d.get('uso'),
- 'Placa: '+d.get('placa'),
+document.getElementById('cep').addEventListener('input', function(){
+ let v = this.value.replace(/\D/g,'').slice(0,8);
+ if(v.length > 5) v = v.slice(0,5) + '-' + v.slice(5);
+ this.value = v;
+});
+document.getElementById('cpf').addEventListener('input', function(){
+ let v = this.value.replace(/\D/g,'').slice(0,11);
+ if(v.length > 9) {
+   v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{1,2})/, '$1.$2.$3-$4');
+ } else if(v.length > 6) {
+   v = v.replace(/(\d{3})(\d{3})(\d{1,3})/, '$1.$2.$3');
+ } else if(v.length > 3) {
+   v = v.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+('nome'),
+ 'CPF: ' + d.get('cpf'),
+ 'Placa do veículo: ' + d.get('placa'),
+ 'Telefone: ' + d.get('telefone'),
+ 'E-mail: ' + d.get('email'),
+ 'Data de nascimento: ' + d.get('nascimento'),
+ 'Estado civil: ' + d.get('estado_civil'),
+ 'CEP: ' + d.get('cep'),
+ 'Uso do veículo: ' + d.get('uso'),
+ 'Possui garagem de pernoite: ' + d.get('garagem'),
  '',
  'Por favor, entrem em contato comigo para dar continuidade ao atendimento.'
  ].join('\n');
- const url='https://wa.me/5521984425712?text='+encodeURIComponent(msg);
- window.open(url,'_blank','noopener,noreferrer');
+ const url = 'https://wa.me/5521984425712?text=' + encodeURIComponent(msg);
+ window.open(url, '_blank', 'noopener,noreferrer');
 });
 </script>
 </body>
 </html>
+  
